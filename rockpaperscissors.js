@@ -2,7 +2,7 @@ function getComputerChoice(){
     array=["rock","papper","scissors"];
     let index=(Math.floor(Math.random()*3));
     return array[index];
-}
+};
 
 function playRound(playerSelection,computerSelection){
     let condtion;
@@ -23,49 +23,91 @@ function playRound(playerSelection,computerSelection){
         condtion = "it's a tie";
     }
     return condtion;
-}
+};
 
-let userWinCount = 0;
-let computerWinCount = 0;
-
-function playGame(){
-    for(let i=0; i<=4; i++){
-        const prompt=require("prompt-sync")({sigint:true});
-
-        let playerSelection =prompt("choose rock, papper, scissors \n").toLowerCase();
-        let computerSelection =getComputerChoice();
-        let result = playRound(playerSelection,computerSelection);
-
-        console.log(playRound(playerSelection,computerSelection));   
-        console.log(playerSelection);
-        console.log(computerSelection);
-
+function checkResult(result){
         if(result =="you win rock beats scissors"){
-            userWinCount+=1;
+            playerCounter += 1;
         } else if (result =="you win papper beats rock"){
-            userWinCount += 1;
+            playerCounter += 1;
         }else if (result =="you win scissors beats papper"){
-            userWinCount += 1;
+            playerCounter += 1;
         }else if (result =="you lose rock beats scissors"){
-            computerWinCount += 1;
+            computerCounter += 1;
         }else if (result =="you lose scissors beats papper"){
-            computerWinCount += 1;
+            computerCounter += 1;
         }else if (result =="you lose papper beats rock"){
-            computerWinCount += 1
+            computerCounter += 1
         }
-        
-        console.log(userWinCount);
-        console.log(computerWinCount);
-        console.log(result);
+};
+
+const btn1 = document.querySelector("#btn1");
+const btn2 = document.querySelector("#btn2");
+const btn3 = document.querySelector("#btn3");
+const playerChoice = document.querySelector("#playerCoice");
+const computerChoice = document.querySelector("#computerChoice");
+const roundWinner = document.querySelector("#roundWinner");
+const playerScore = document.querySelector("#playerScore");
+const computerScore = document.querySelector("#computerScore");
+const gameWinner = document.querySelector("#gameWinner");
+
+let playerCounter = 0;
+let computerCounter = 0;
+
+    
+btn1.addEventListener("click", () => {
+    if (playerCounter < 5 && computerCounter < 5){
+    playerChoice.textContent = "rock";
+    computerChoice.textContent = getComputerChoice();
+    let result = playRound(playerChoice.textContent,computerChoice.textContent);
+    roundWinner.textContent = result;
+    checkResult(result);
+    playerScore.textContent = playerCounter;
+    computerScore.textContent = computerCounter;
+    if (playerCounter == 5 || computerCounter == 5){
+        if (playerCounter < computerCounter){
+            gameWinner.textContent = "you lost against the computer";
+        } else if (playerCounter > computerCounter){
+            gameWinner.textContent = "congratulations you won against the computer";
+        }
     }
-}
+    };
+})
 
-console.log(playGame());
-
-if (userWinCount<computerWinCount){
-    console.log("you lost against the computer");
-} else if (userWinCount>computerWinCount){
-    console.log("congratulations you won against the computer");
-}else{
-    console.log("not bad it's a tie");
-}
+btn2.addEventListener("click", () => {
+    if (playerCounter < 5 && computerCounter < 5){
+    playerChoice.textContent = "papper";
+    computerChoice.textContent = getComputerChoice();
+    let result = playRound(playerChoice.textContent,computerChoice.textContent);
+    roundWinner.textContent = result;
+    checkResult(result);
+    playerScore.textContent = playerCounter;
+    computerScore.textContent = computerCounter;
+    if (playerCounter == 5 || computerCounter == 5){
+        if (playerCounter < computerCounter){
+            gameWinner.textContent = "you lost against the computer";
+        } else if (playerCounter > computerCounter){
+            gameWinner.textContent = "congratulations you won against the computer";
+        }
+    }
+    } 
+})
+    
+btn3.addEventListener("click", () => {
+    if (playerCounter < 5 && computerCounter < 5){
+    playerChoice.textContent = "scissors";
+    computerChoice.textContent = getComputerChoice();
+    let result = playRound(playerChoice.textContent,computerChoice.textContent);
+    roundWinner.textContent = result;
+    checkResult(result);
+    playerScore.textContent = playerCounter;
+    computerScore.textContent = computerCounter;
+    if (playerCounter == 5 || computerCounter == 5){
+        if (playerCounter < computerCounter){
+            gameWinner.textContent = "you lost against the computer";
+        } else if (playerCounter > computerCounter){
+            gameWinner.textContent = "congratulations you won against the computer";
+        }
+    }
+    };
+})
